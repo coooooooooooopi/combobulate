@@ -455,7 +455,9 @@ The returned list is ordered smallest-to-largest by the node's
 extent."
   (let ((nodes)
         (sub-node (combobulate-node-descendant-for-range
-                   (combobulate-root-node) (if backward (1- (point)) (point)) (point) anonymous)))
+                   (combobulate-root-node)
+                   (if backward (max (point-min) (1- (point))) (point))
+                   (point) anonymous)))
     (while (and sub-node (= (if backward (combobulate-node-end sub-node) (combobulate-node-start sub-node)) (point)))
       (push sub-node nodes)
       (setq sub-node (combobulate-node-parent sub-node)))
